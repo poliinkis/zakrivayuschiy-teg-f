@@ -31,8 +31,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: var(--block-width);
-  min-height: var(--header-height);
+  inline-size: var(--block-width);
+  /*min-height: var(--header-height);*/
+  margin-inline: auto;
+  padding: 130px;
   background-color: var(--bg-color);
   border: var(--border);
   position: relative;
@@ -68,13 +70,13 @@ main {
   height: auto;
   display: flex;
   flex-direction: column;
-  /*margin-top: clamp(98px, 10vh, 100px);*/
   margin-bottom: 50px;
 }
 
 .card__title {
   font-family: var(--font-family);
   font-size: var(--font-size);
+  font-variation-settings: "wght" 715;
   padding: 4px 10px;
 }
 
@@ -127,14 +129,20 @@ main {
   right: 25px;
   font-family: var(--font-family-accent);
   font-size: 14px;
-  opacity: 85%;
+  text-transform: uppercase;
+  opacity: 50%;
   mix-blend-mode: hard-light;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: var(--stoke-color, #fff);
+  text-shadow: 
+    1px 0 var(--stoke-color, #fff),
+   -1px 0 var(--stoke-color, #fff),
+    0 1px var(--stoke-color, #fff),
+    0 -1px var(--stoke-color, #fff);
 }
 
-@supports (text-stroke: 1px #fff) {
+@supports (-webkit-text-stroke: 1px #fff) or (text-stroke: 1px #fff) {
   .card__label {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--stoke-color, #fff);
     text-stroke: 1px var(--stoke-color, #fff);
   }
 }
@@ -143,94 +151,39 @@ main {
   font-family: var(--font-family);
   font-size: var(--font-size);
   margin-top: 25px;
-  /*margin-bottom: 25px;*/
   padding: 0 25px;
   line-height: 21px;
 }
 
-.card__text-memories {
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  /*margin-bottom: 88px;*/
-  padding: 25px 25px;
-  line-height: 21px;
-}
-
-/*
-.card__buttons {
-  border: none;
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 25px;
-  margin-bottom: 25px;
-  position: relative;
-  z-index: 1;
-}
-
-.card__like-button {
-  /*position: relative;
-  background-color: var(--bg-color);
-  height: 38px;
-  width: 130px;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  position: relative;
-  background-color: var(--bg-color);
-  height: 38px;
-  width: 130px;
-  overflow: hidden;
-  border: var(--border);
-}
-
-.card__like-button .like-icon {
-  position: relative;
-  width: 39px;
-  height: 36px;
-  z-index: 10;
-  transform-origin: center;
-}
-
-.like-icon {
-  transform: translateY(7px);
-}
-*/
-
 .card__buttons {
   display: grid;
-  grid-template-columns: auto 130px;
+  grid-template-columns: auto 39px 130px;
   align-items: center;
   column-gap: 12px;
   width: 100%;
   padding-right: 25px;
   margin-bottom: 25px;
+  margin-top: 25px;
 }
 
-.like-icon {
-  grid-column: 1;
-  justify-self: end;
-}
+/*.like-icon {
+  display: flex;
+  transform: translate(6px, 7px);
+}*/
 
 .card__like-button {
-  grid-column: 2;
+  grid-column: 3 / 4;
   justify-self: start;
-  width: 130px;
+  width: 100%;
   height: 38px;
-  overflow: hidden;
-  position: relative;
-  background-color: var(--bg-color);
 }
 
 .card__icon-button {
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  padding: 0;
+  grid-column: 2 / 3;
   background-color: transparent;
   border: none;
   cursor: pointer;
+  padding: 0;
 }
 
 .button__text {
@@ -240,26 +193,13 @@ main {
 }
 
 .card__save-button .button__icon {
-  mix-blend-mode: normal !important;
+  mix-blend-mode: normal;
 }
 
-/*.like-icon {
-  position: absolute;
-  margin-top: 7px;
-  margin-right: 142px;
-  transform-origin: center;
-}*/
-
 .card__save-button {
-  /*display: inline-flex;*/
   align-items: center;
-  border: var(--border);
-  background-color: var(--bg-color) !important;
-  font-size: 14px;
   width: 335px;
   height: 55px;
-  position: relative;
-  z-index: 1;
   margin-bottom: 100px;
 }
 
@@ -296,12 +236,10 @@ dialog:not([open]) {
 }
 
 .dialog__ok-button {
-  position: relative;
-  border: var(--border);
-  background-color: var(--bg-color);
   grid-column: 1 / -1;
   grid-row: 2;
   height: 38px;
+  text-transform: uppercase;
 }
 
 .save-dialog {
@@ -312,7 +250,6 @@ dialog:not([open]) {
   background-color: var(--bg-color);
   display: grid;
   overflow-y: hidden;
-  /*align-items: center;*/
 }
 
 .dialog__content {
@@ -327,6 +264,10 @@ dialog:not([open]) {
   .header,
   .card {
     width: 100%;
+  }
+
+  .header {
+    padding: 122px;
   }
 
   .card__save-button {
@@ -345,29 +286,35 @@ dialog:not([open]) {
   }
 }
 
-.card__like-button,
-.card__save-button,
-.dialog__ok-button {
+.button {
   transition: box-shadow 0.3s ease;
   cursor: pointer;
   overflow: hidden;
+  border: var(--border);
+  background-color: var(--bg-color);
+  position: relative;
+  font-size: 14px;
+  display: block;
+  color: var(--element-color);
 }
 
-.card__like-button:focus,
-.card__save-button:focus,
-.dialog__ok-button:focus {
+.button__icon {
+  position: relative;
+  color: inherit;
+  mix-blend-mode: difference;
+  z-index: 1;
+  transform: translateZ(0);
+}
+
+.button:focus {
   outline: none;
 }
 
-.card__like-button:focus-visible,
-.card__save-button:focus-visible,
-.dialog__ok-button:focus-visible {
+.button:focus-visible {
   box-shadow: 2px 2px 0px 0px var(--accent-color);
 }
 
-.card__like-button::before,
-.card__save-button::before,
-.dialog__ok-button::before {
+.button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -380,19 +327,27 @@ dialog:not([open]) {
   z-index: 0;
 }
 
-.card__like-button:hover::before,
-.card__save-button:hover::before,
-.dialog__ok-button:hover::before {
+.button:hover::before {
   transform: translateX(0);
 }
 
-.card__like-button .button__text,
-.card__save-button .button__text,
-.dialog__ok-button .button__text,
+/*.button .button__text,
 .card__save-button .button__icon {
   color: var(--element-color);
-  fill: var(--element-color) !important;
+  fill: var(--element-color);
   position: relative;
   mix-blend-mode: difference;
-  z-index: 10;
+  z-index: 1;
+}*/
+
+.button__text,
+.button__icon {
+  mix-blend-mode: difference;
+  color: var(--element-color);
+  z-index: 1;
+  position: relative;
+}
+
+.dialog__icon {
+  mix-blend-mode: normal;
 }
