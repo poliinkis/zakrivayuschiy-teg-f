@@ -24,6 +24,7 @@
   background-size: cover;
   background-attachment: fixed;
   margin: 0 auto;
+  inline-size: var(--block-width);
 }
 
 .header {
@@ -32,7 +33,6 @@
   align-items: center;
   justify-content: center;
   inline-size: var(--block-width);
-  /*min-height: var(--header-height);*/
   margin-inline: auto;
   padding: 130px;
   background-color: var(--bg-color);
@@ -52,9 +52,10 @@
 
 .header__title {
   font-family: var(--font-family-accent);
-  font-size:23px;
+  font-size: 23px;
   text-transform: uppercase;
   margin: 0;
+  white-space: nowrap;
 }
 
 main {
@@ -233,7 +234,6 @@ dialog:not([open]) {
 }
 
 .save-dialog {
-  height: 191px;
   width: 353px;
   padding: 30px;
   border: var(--border);
@@ -267,13 +267,18 @@ dialog:not([open]) {
   }
 
   .button.card__save-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 306px;
-  height: 84px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 306px;
+    height: 84px;
+  }
+
+  .card__save-button .button__icon {
+    width: 28px;
+    height: 28px;
   }
 
   .card__save-button .dialog__icon {
@@ -326,15 +331,6 @@ dialog:not([open]) {
 .button:hover::before {
   transform: translateX(0);
 }
-
-/*.button .button__text,
-.card__save-button .button__icon {
-  color: var(--element-color);
-  fill: var(--element-color);
-  position: relative;
-  mix-blend-mode: difference;
-  z-index: 1;
-}*/
 
 .button__text,
 .button__icon {

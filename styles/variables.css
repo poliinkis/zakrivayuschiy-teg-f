@@ -17,7 +17,6 @@
     --bg-color: #fff;
     --width: clamp(375px, 85vw, 1440px);
     --block-width: clamp(375px, 100vw, 700px);
-    --header-height: clamp(317px, 40vw, 368px);
     --border: 2px solid #000;
     --logo-font-size: clamp(49px, 6vw, 65px);
     --title-font-size: clamp(14px, 2vw, 20px);
